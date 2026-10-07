@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function owner(uid) { return request.auth != null && request.auth.uid == uid; }
+    match /users/{uid}/reviews/{eventId} {
+      allow read: if owner(uid);
+      allow create: if owner(uid)
+        && request.resource.data.keys().hasOnly(['id', 'wordId', 'at', 'day', 'recall', 'progress'])
+        && request.resource.data.id == eventId
+        && request.resource.data.wordId is string
+        && request.resource.data.wordId.size() <= 100
+        && request.resource.data.at is string
+        && request.resource.data.at.size() <= 40
+        && request.resource.data.day is string
+        && request.resource.data.day.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+        && request.resource.data.recall is int
+        && request.resource.data.recall >= 0 && request.resource.data.recall <= 3
+        && request.resource.data.progress is map;
+      allow update: if owner(uid) && request.resource.data == resource.data;
+      allow delete: if false;
+    }
+    match /users/{uid}/devices/{deviceId} {
+      allow read, delete: if owner(uid);
+      allow create, update: if owner(uid)
+        && request.resource.data.keys().hasOnly(['token','updatedAt'])
+        && request.resource.data.token == deviceId
+        && request.resource.data.updatedAt == request.time;
+    }
+    match /leaderboard/{uid} { allow read: if request.auth != null; allow write: if false; }
+    match /{document=**} { allow read, write: if false; }
+  }
+}
