@@ -22,7 +22,7 @@ class EasyLocalizations {
 
 String localize(String value, BuildContext context) {
   if (Localizations.localeOf(context).languageCode != 'uk') return value;
-  const translations = <String, String>{
+  final translations = <String, String>{
     'Обучение начинается с маленького шага.':
         'Навчання починається з маленького кроку.',
     'Ваша коллекция слов': 'Ваша колекція слів',
