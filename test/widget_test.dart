@@ -40,7 +40,7 @@ void main() {
       expect(find.text('открывать, обнаруживать'), findsNothing);
       await tester.tap(find.text('Показать перевод'));
       await tester.pumpAndSettle();
-      expect(find.text('открывать, обнаруживать'), findsOneWidget);
+    expect(find.text('відкривати, виявляти'), findsOneWidget);
       await tester.ensureVisible(find.text('Помню'));
       await tester.tap(find.text('Помню'));
       await tester.runAsync(

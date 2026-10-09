@@ -9,6 +9,41 @@ class OfflineLearningRepository implements LearningRepository {
   final SharedPreferences preferences;
   final FirebaseFirestore? firestore;
   Future<void>? _writeQueue;
+
+  static const ukrainianTranslations = <String, String>{
+    'discover': 'відкривати, виявляти',
+    'journey': 'подорож',
+    'learn': 'навчатися, дізнаватися',
+    'remember': 'пам’ятати',
+    'improve': 'покращувати',
+    'enjoy': 'насолоджуватися',
+    'enough': 'достатньо',
+    'believe': 'вірити',
+    'choose': 'обирати',
+    'quiet': 'тихий, спокійний',
+    'different': 'інший, відмінний',
+    'together': 'разом',
+    'future': 'майбутнє',
+    'create': 'створювати',
+    'experience': 'досвід, враження',
+    'opportunity': 'можливість',
+    'achieve': 'досягати',
+    'challenge': 'виклик, складне завдання',
+    'develop': 'розвивати',
+    'confident': 'впевнений',
+    'curious': 'допитливий',
+    'support': 'підтримувати',
+    'purpose': 'мета, призначення',
+    'progress': 'прогрес, просування',
+    'adapt': 'пристосовуватися',
+    'ambitious': 'амбітний',
+    'insight': 'розуміння, осяяння',
+    'sustainable': 'сталий, екологічний',
+    'perspective': 'точка зору, перспектива',
+    'dedicated': 'відданий справі',
+    'reward': 'нагорода, винагорода',
+    'meaningful': 'значущий, змістовний',
+  };
   @override
   Future<List<VocabularyWord>> loadWords() async {
     final json =
@@ -28,6 +63,7 @@ class OfflineLearningRepository implements LearningRepository {
       final sample = exampleMap[item['id']];
       item['translation'] =
           preferences.getString('translation_${item['id']}') ??
+          ukrainianTranslations[item['id']] ??
           sample?.translation ??
           '';
       item['example'] = sample?.example ?? '';
