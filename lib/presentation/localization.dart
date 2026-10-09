@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// A few labels intentionally share the same Russian source phrase.
+// ignore_for_file: equal_keys_in_map
+
 class UiText {
   const UiText(this.ru, this.uk);
   final String ru, uk;
