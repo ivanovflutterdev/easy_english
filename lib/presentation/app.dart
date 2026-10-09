@@ -2,8 +2,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../application/learning_controller.dart';
 import 'screens.dart';
+import 'localization.dart';
 
-const accents = [Color(0xFF7C4DFF), Color(0xFF00A896), Color(0xFFFF6B4A)];
+const accents = [Color(0xFF9BCB3B), Color(0xFF70B82D), Color(0xFFB7D84B)];
 
 class EasyEnglishApp extends StatelessWidget {
   const EasyEnglishApp({super.key, required this.controller});
@@ -72,6 +73,7 @@ class EasyEnglishApp extends StatelessWidget {
 
       return MaterialApp(
         title: 'Easy English',
+        locale: controller.locale,
         debugShowCheckedModeBanner: false,
         theme: theme(Brightness.light),
         darkTheme: theme(Brightness.dark),
@@ -211,10 +213,10 @@ class _HomeShellState extends State<HomeShell> {
                   const Color(0xFF142A30),
                 ]
               : [
-                  const Color(0xFFFFE7F2),
-                  const Color(0xFFFFF3C7),
-                  const Color(0xFFDDF8F3),
-                  const Color(0xFFE8DEFF),
+                  const Color(0xFFF1F8D5),
+                  const Color(0xFFFFF7C7),
+                  const Color(0xFFDDF5D7),
+                  const Color(0xFFE8F4C8),
                 ],
         ),
       ),
@@ -333,7 +335,9 @@ class _HomeShellState extends State<HomeShell> {
                                           )
                                         else
                                           Text(
-                                            labels[selected],
+                                            EasyLocalizations.nav[selected].of(
+                                              context,
+                                            ),
                                             style: Theme.of(
                                               context,
                                             ).textTheme.titleMedium,
@@ -359,6 +363,24 @@ class _HomeShellState extends State<HomeShell> {
                                           ),
                                         ),
                                         const SizedBox(width: 12),
+                                        IconButton(
+                                          onPressed: () => c.setting(
+                                            'language',
+                                            c.locale.languageCode == 'uk'
+                                                ? 'ru'
+                                                : 'uk',
+                                          ),
+                                          icon: Text(
+                                            c.locale.languageCode == 'uk'
+                                                ? 'UA'
+                                                : 'RU',
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w800,
+                                            ),
+                                          ),
+                                          tooltip: EasyLocalizations.language
+                                              .of(context),
+                                        ),
                                         IconButton.filledTonal(
                                           onPressed: () =>
                                               setState(() => selected = 4),
@@ -401,7 +423,7 @@ class _HomeShellState extends State<HomeShell> {
                         for (var i = 0; i < labels.length; i++)
                           NavigationDestination(
                             icon: Icon(icons[i]),
-                            label: labels[i],
+                            label: EasyLocalizations.nav[i].of(context),
                           ),
                       ],
                     ),

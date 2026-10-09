@@ -34,6 +34,7 @@ class LearningController extends ChangeNotifier {
   StreamSubscription<List<ReviewEvent>>? _remoteSubscription;
   Timer? _timer;
   ThemeMode get themeMode => ThemeMode.values[preferences.getInt('theme') ?? 0];
+  Locale get locale => Locale(preferences.getString('language') ?? 'ru');
   int get goal => preferences.getInt('goal') ?? 10;
   String get accent => preferences.getString('accent') ?? 'en-GB';
   double get speechRate => preferences.getDouble('rate') ?? .45;
