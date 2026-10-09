@@ -42,7 +42,6 @@ migrate_working_dir/
 **/*serviceAccount*.json
 **/google-services.json
 **/GoogleService-Info.plist
-lib/firebase_options.dart
 *.jks
 *.keystore
 android/key.properties

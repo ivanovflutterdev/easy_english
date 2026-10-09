@@ -9,13 +9,16 @@ import 'data/firebase_services.dart';
 import 'data/platform_services.dart';
 import 'data/settings_store.dart';
 import 'presentation/app.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final preferences = await SharedPreferences.getInstance();
   var cloudReady = false;
   try {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     cloudReady = true;
   } catch (_) {
     cloudReady = false;
