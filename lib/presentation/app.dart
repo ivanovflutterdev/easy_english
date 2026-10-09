@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../application/learning_controller.dart';
 import 'screens.dart';
 import 'localization.dart';
+import '../l10n/app_localizations.dart';
 
 const accents = [
   Color(0xFF9BCB3B), // Салатовый
@@ -84,6 +85,8 @@ class EasyEnglishApp extends StatelessWidget {
       return MaterialApp(
         title: 'Easy English',
         locale: controller.locale,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         debugShowCheckedModeBanner: false,
         theme: theme(Brightness.light),
         darkTheme: theme(Brightness.dark),
