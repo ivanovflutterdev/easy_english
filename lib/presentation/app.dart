@@ -296,7 +296,7 @@ class _HomeShellState extends State<HomeShell> {
                                     ).colorScheme.primary.withValues(alpha: .1),
                                     leading: Icon(icons[i]),
                                     title: Text(
-                                      labels[i],
+                                      EasyLocalizations.nav[i].of(context),
                                       style: const TextStyle(fontSize: 14),
                                     ),
                                     onTap: () => setState(() => selected = i),
@@ -509,7 +509,7 @@ class SectionTitle extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                title,
+                localize(title, context),
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.w700,
                   letterSpacing: -.7,
@@ -519,7 +519,7 @@ class SectionTitle extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: Text(
-                    subtitle!,
+                    localize(subtitle!, context),
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                       height: 1.5,

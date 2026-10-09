@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../application/learning_controller.dart';
 import '../domain/learning.dart';
 import 'app.dart';
+import 'localization.dart';
 export 'study_screen.dart';
 export 'settings_screen.dart';
 
@@ -62,7 +63,7 @@ class Dashboard extends StatelessWidget {
                   FilledButton.icon(
                     onPressed: c.queue().isEmpty ? null : () => onStudy(),
                     icon: const Icon(Icons.play_arrow_rounded),
-                    label: const Text('Начать занятие'),
+                    label: Text(localize('Начать занятие', context)),
                   ),
                   const SizedBox(height: 12),
                   Text(
@@ -208,7 +209,7 @@ class Dashboard extends StatelessWidget {
           subtitle: 'От первых разговоров к свободному общению',
           trailing: TextButton(
             onPressed: onLibrary,
-            child: const Text('Все слова'),
+            child: Text(localize('Все слова', context)),
           ),
         ),
         _Deck(
@@ -505,13 +506,15 @@ class _LibraryScreenState extends State<LibraryScreen> {
               ? null
               : () => widget.onStudy(deck),
           icon: const Icon(Icons.play_arrow_rounded),
-          label: const Text('Учить эту коллекцию'),
+          label: Text(localize('Учить эту коллекцию', context)),
         ),
         const SizedBox(height: 20),
         if (words.isEmpty)
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(30),
-            child: Text('Ничего не найдено. Попробуйте другое слово.'),
+            child: Text(
+              localize('Ничего не найдено. Попробуйте другое слово.', context),
+            ),
           ),
         for (final word in words.take(visibleCount))
           Padding(
