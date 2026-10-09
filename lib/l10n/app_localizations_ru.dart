@@ -48,7 +48,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get russian => 'Русский';
 
   @override
-  String get ukrainian => 'Українська';
+  String get ukrainian => 'Украинский';
 
   @override
   String get showTranslation => 'Показать перевод';

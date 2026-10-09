@@ -1,4 +1,4 @@
-{
+﻿{
   "@@locale": "ru",
   "appTitle": "Easy English",
   "learn": "Обучение",
@@ -13,7 +13,7 @@
   "totalXp": "Всего XP",
   "interfaceLanguage": "Язык интерфейса",
   "russian": "Русский",
-  "ukrainian": "Українська",
+  "ukrainian": "Украинский",
   "showTranslation": "Показать перевод",
   "learnCollection": "Учить эту коллекцию",
   "emptySearch": "Ничего не найдено. Попробуйте другое слово.",

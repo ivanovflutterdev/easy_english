@@ -179,7 +179,7 @@ abstract class AppLocalizations {
   /// No description provided for @ukrainian.
   ///
   /// In ru, this message translates to:
-  /// **'Українська'**
+  /// **'Украинский'**
   String get ukrainian;
 
   /// No description provided for @showTranslation.

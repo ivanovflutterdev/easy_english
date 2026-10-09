@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 
 // A few labels intentionally share the same Russian source phrase.
@@ -73,6 +74,7 @@ class EasyLocalizations {
 }
 
 String localize(String value, BuildContext context) {
+  value = _repairMojibake(value);
   if (Localizations.localeOf(context).languageCode != 'uk') return value;
   final translations = <String, String>{
     'Обучение начинается с маленького шага.':
@@ -129,5 +131,55 @@ String localize(String value, BuildContext context) {
         'Прогрес зберігається після кожної відповіді',
     'Произнести слово': 'Вимовити слово',
   };
-  return translations[value] ?? value;
+  final repaired = {
+    for (final entry in translations.entries)
+      _repairMojibake(entry.key): _repairMojibake(entry.value),
+  };
+  return repaired[value] ?? value;
+}
+
+String _repairMojibake(String value) {
+  if (!value.contains('Ð') && !value.contains('Ñ')) return value;
+  const cp1252 = {
+    '€': 0x80,
+    '‚': 0x82,
+    'ƒ': 0x83,
+    '„': 0x84,
+    '…': 0x85,
+    '†': 0x86,
+    '‡': 0x87,
+    'ˆ': 0x88,
+    '‰': 0x89,
+    'Š': 0x8a,
+    '‹': 0x8b,
+    'Œ': 0x8c,
+    'Ž': 0x8e,
+    '‘': 0x91,
+    '’': 0x92,
+    '“': 0x93,
+    '”': 0x94,
+    '•': 0x95,
+    '–': 0x96,
+    '—': 0x97,
+    '˜': 0x98,
+    '™': 0x99,
+    'š': 0x9a,
+    '›': 0x9b,
+    'œ': 0x9c,
+    'ž': 0x9e,
+    'Ÿ': 0x9f,
+  };
+  final bytes = <int>[];
+  for (final char in value.runes) {
+    final symbol = String.fromCharCode(char);
+    final replacement = cp1252[symbol];
+    if (replacement != null) {
+      bytes.add(replacement);
+    } else if (char <= 0xff) {
+      bytes.add(char);
+    } else {
+      return value;
+    }
+  }
+  return utf8.decode(bytes, allowMalformed: true);
 }
