@@ -10,6 +10,8 @@ import 'data/platform_services.dart';
 import 'data/settings_store.dart';
 import 'presentation/app.dart';
 import 'firebase_options.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'application/cubits.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +35,15 @@ Future<void> main() async {
     reminders: ReminderService(),
     homeWidget: ProgressWidgetService(),
   );
-  runApp(EasyEnglishApp(controller: controller));
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => LearningCubit(controller)),
+        BlocProvider(create: (_) => SettingsCubit(controller)),
+        BlocProvider(create: (_) => AuthCubit(controller.auth)),
+      ],
+      child: EasyEnglishApp(controller: controller),
+    ),
+  );
   await controller.initialize();
 }
