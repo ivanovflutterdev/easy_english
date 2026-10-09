@@ -2,6 +2,7 @@ import '../domain/services.dart';
 import 'package:flutter/material.dart';
 import '../application/learning_controller.dart';
 import 'app.dart';
+import 'localization.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key, required this.controller});
@@ -35,12 +36,12 @@ class SettingsScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        LText(
                           c.user?.email ?? 'Учитесь без регистрации',
                           style: const TextStyle(fontWeight: FontWeight.w700),
                         ),
                         const SizedBox(height: 6),
-                        Text(
+                        LText(
                           c.syncStatus,
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
@@ -51,7 +52,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               if (c.auth == null)
-                const Text(
+                LText(
                   'Локальный режим. Для входа, восстановления пароля и синхронизации нужно подключить Firebase.',
                   style: TextStyle(height: 1.5),
                 )
@@ -62,10 +63,10 @@ class SettingsScreen extends StatelessWidget {
                     builder: (_) => AuthDialog(controller: c),
                   ),
                   icon: const Icon(Icons.cloud_outlined),
-                  label: const Text('Войти или создать аккаунт'),
+                  label: LText('Войти или создать аккаунт'),
                 ),
                 const SizedBox(height: 12),
-                const Text(
+                LText(
                   'Гостевой прогресс хранится отдельно от аккаунта.',
                   style: TextStyle(fontSize: 12),
                 ),
@@ -78,7 +79,7 @@ class SettingsScreen extends StatelessWidget {
                       c.report('Не удалось выйти. Попробуйте ещё раз.');
                     }
                   },
-                  child: const Text('Выйти из аккаунта'),
+                  child: LText('Выйти из аккаунта'),
                 ),
             ],
           ),
@@ -89,12 +90,12 @@ class SettingsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              LText(
                 'Ритм обучения',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 22),
-              Text('Дневная цель: ${c.goal} ответов'),
+              LText('Дневная цель: ${c.goal} ответов'),
               Slider(
                 value: c.goal.toDouble(),
                 min: 5,
@@ -104,7 +105,7 @@ class SettingsScreen extends StatelessWidget {
                 onChanged: (v) => c.setting('goal', v.round()),
               ),
               const SizedBox(height: 12),
-              const Text('Произношение'),
+              LText('Произношение'),
               const SizedBox(height: 10),
               Wrap(
                 spacing: 10,
@@ -114,14 +115,14 @@ class SettingsScreen extends StatelessWidget {
                     ('en-US', 'Американское'),
                   ])
                     ChoiceChip(
-                      label: Text(accent.$2),
+                      label: LText(accent.$2),
                       selected: c.accent == accent.$1,
                       onSelected: (_) => c.setting('accent', accent.$1),
                     ),
                 ],
               ),
               const SizedBox(height: 18),
-              const Text('Скорость озвучки'),
+              LText('Скорость озвучки'),
               Slider(
                 value: c.speechRate,
                 min: .25,
@@ -132,7 +133,7 @@ class SettingsScreen extends StatelessWidget {
               TextButton.icon(
                 onPressed: () => c.speak('A little progress every day.'),
                 icon: const Icon(Icons.volume_up_outlined),
-                label: const Text('Послушать пример'),
+                label: LText('Послушать пример'),
               ),
             ],
           ),
@@ -143,7 +144,7 @@ class SettingsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              LText(
                 'Внешний вид',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
@@ -153,7 +154,7 @@ class SettingsScreen extends StatelessWidget {
                 children: [
                   for (final mode in ThemeMode.values)
                     ChoiceChip(
-                      label: Text(
+                      label: LText(
                         ['Как в системе', 'Светлая', 'Тёмная'][mode.index],
                       ),
                       selected: c.themeMode == mode,
@@ -162,7 +163,7 @@ class SettingsScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 22),
-              const Text('Цвет акцента'),
+              LText('Цвет акцента'),
               const SizedBox(height: 8),
               Wrap(
                 spacing: 12,
@@ -190,7 +191,7 @@ class SettingsScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 18),
-              Text('Размер текста: ${(c.textScale * 100).round()}%'),
+              LText('Размер текста: ${(c.textScale * 100).round()}%'),
               Slider(
                 value: c.textScale,
                 min: .9,
@@ -200,8 +201,8 @@ class SettingsScreen extends StatelessWidget {
               ),
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Уменьшить прозрачность'),
-                subtitle: const Text('Более контрастные панели'),
+                title: LText('Уменьшить прозрачность'),
+                subtitle: LText('Более контрастные панели'),
                 value: c.reduceGlass,
                 onChanged: (v) => c.setting('reduceGlass', v),
               ),
@@ -214,22 +215,22 @@ class SettingsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              LText(
                 'Мягкие напоминания',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 12),
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Каждый день'),
-                subtitle: const Text('Работает даже без интернета'),
+                title: LText('Каждый день'),
+                subtitle: LText('Работает даже без интернета'),
                 value: c.reminderEnabled,
                 onChanged: (v) => c.setReminder(v),
               ),
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: const Icon(Icons.schedule),
-                title: Text(
+                title: LText(
                   'В ${c.reminderHour.toString().padLeft(2, '0')}:${c.reminderMinute.toString().padLeft(2, '0')}',
                 ),
                 trailing: const Icon(Icons.chevron_right),
@@ -253,8 +254,8 @@ class SettingsScreen extends StatelessWidget {
               ),
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Push о повторении'),
-                subtitle: const Text('Когда пора повторить изученные слова'),
+                title: LText('Push о повторении'),
+                subtitle: LText('Когда пора повторить изученные слова'),
                 value: c.pushEnabled,
                 onChanged: c.user == null ? null : (v) => c.setPush(v),
               ),
@@ -262,8 +263,8 @@ class SettingsScreen extends StatelessWidget {
               const ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: Icon(Icons.widgets_outlined),
-                title: Text('Прогресс на главном экране'),
-                subtitle: Text(
+                title: LText('Прогресс на главном экране'),
+                subtitle: LText(
                   'Добавьте виджет Easy English через меню виджетов вашего устройства.',
                 ),
               ),
@@ -272,7 +273,7 @@ class SettingsScreen extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         const Center(
-          child: Text(
+          child: LText(
             'Easy English · По одному слову к новому миру',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 12),
@@ -363,7 +364,7 @@ class _AuthDialogState extends State<AuthDialog> {
 
   @override
   Widget build(BuildContext context) => AlertDialog(
-    title: Text(register ? 'Начните свою историю' : 'С возвращением!'),
+    title: LText(register ? 'Начните свою историю' : 'С возвращением!'),
     content: SizedBox(
       width: 380,
       child: SingleChildScrollView(
@@ -371,7 +372,7 @@ class _AuthDialogState extends State<AuthDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text('Ваши слова и прогресс — на всех устройствах.'),
+            LText('Ваши слова и прогресс — на всех устройствах.'),
             const SizedBox(height: 22),
             TextField(
               controller: email,
@@ -394,7 +395,7 @@ class _AuthDialogState extends State<AuthDialog> {
             if (message != null)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Text(
+                child: LText(
                   message!,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
@@ -403,7 +404,7 @@ class _AuthDialogState extends State<AuthDialog> {
               ),
             FilledButton(
               onPressed: busy ? null : submit,
-              child: Text(
+              child: LText(
                 busy
                     ? 'Подождите…'
                     : register
@@ -413,7 +414,7 @@ class _AuthDialogState extends State<AuthDialog> {
             ),
             TextButton(
               onPressed: busy ? null : () => submit(reset: true),
-              child: const Text('Забыли пароль?'),
+              child: LText('Забыли пароль?'),
             ),
             TextButton(
               onPressed: busy
@@ -422,7 +423,7 @@ class _AuthDialogState extends State<AuthDialog> {
                       register = !register;
                       message = null;
                     }),
-              child: Text(
+              child: LText(
                 register ? 'Уже есть аккаунт? Войти' : 'Создать новый аккаунт',
               ),
             ),
@@ -433,7 +434,7 @@ class _AuthDialogState extends State<AuthDialog> {
     actions: [
       TextButton(
         onPressed: busy ? null : () => Navigator.pop(context),
-        child: const Text('Позже'),
+        child: LText('Позже'),
       ),
     ],
   );

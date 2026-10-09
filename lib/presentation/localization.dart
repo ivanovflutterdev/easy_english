@@ -10,6 +10,55 @@ class UiText {
       Localizations.localeOf(context).languageCode == 'uk' ? uk : ru;
 }
 
+/// Text widget that routes every user-facing literal through the current locale.
+/// Unknown strings are returned unchanged, which keeps vocabulary and dynamic data intact.
+class LText extends StatelessWidget {
+  const LText(
+    this.data, {
+    super.key,
+    this.style,
+    this.textAlign,
+    this.textDirection,
+    this.softWrap,
+    this.overflow,
+    this.textScaler,
+    this.maxLines,
+    this.semanticsLabel,
+    this.textWidthBasis,
+    this.textHeightBehavior,
+    this.selectionColor,
+  });
+  final String data;
+  final TextStyle? style;
+  final TextAlign? textAlign;
+  final TextDirection? textDirection;
+  final bool? softWrap;
+  final TextOverflow? overflow;
+  final TextScaler? textScaler;
+  final int? maxLines;
+  final String? semanticsLabel;
+  final TextWidthBasis? textWidthBasis;
+  final TextHeightBehavior? textHeightBehavior;
+  final Color? selectionColor;
+  @override
+  Widget build(BuildContext context) => Text(
+    localize(data, context),
+    style: style,
+    textAlign: textAlign,
+    textDirection: textDirection,
+    softWrap: softWrap,
+    overflow: overflow,
+    textScaler: textScaler,
+    maxLines: maxLines,
+    semanticsLabel: semanticsLabel == null
+        ? null
+        : localize(semanticsLabel!, context),
+    textWidthBasis: textWidthBasis,
+    textHeightBehavior: textHeightBehavior,
+    selectionColor: selectionColor,
+  );
+}
+
 class EasyLocalizations {
   static const nav = <UiText>[
     UiText('Обучение', 'Навчання'),

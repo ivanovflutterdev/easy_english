@@ -191,7 +191,7 @@ class _HomeShellState extends State<HomeShell> {
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text(error)));
+        ).showSnackBar(SnackBar(content: LText(error)));
       }
     });
   }
@@ -298,7 +298,7 @@ class _HomeShellState extends State<HomeShell> {
                                       context,
                                     ).colorScheme.primary.withValues(alpha: .1),
                                     leading: Icon(icons[i]),
-                                    title: Text(
+                                    title: LText(
                                       EasyLocalizations.nav[i].of(context),
                                       style: const TextStyle(fontSize: 14),
                                     ),
@@ -311,7 +311,7 @@ class _HomeShellState extends State<HomeShell> {
                                 color: Color(0xFF8C7DDD),
                               ),
                               const SizedBox(height: 12),
-                              const Text(
+                              LText(
                                 'Маленькие шаги.\nБольшие возможности.',
                                 style: TextStyle(
                                   height: 1.5,
@@ -319,7 +319,7 @@ class _HomeShellState extends State<HomeShell> {
                                 ),
                               ),
                               const SizedBox(height: 12),
-                              Text(
+                              LText(
                                 c.syncStatus,
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
@@ -359,7 +359,7 @@ class _HomeShellState extends State<HomeShell> {
                                             ),
                                           )
                                         else
-                                          Text(
+                                          LText(
                                             EasyLocalizations.nav[selected].of(
                                               context,
                                             ),
@@ -377,7 +377,7 @@ class _HomeShellState extends State<HomeShell> {
                                               size: 20,
                                               color: Color(0xFFDF8751),
                                             ),
-                                            label: Text('${c.streak} дн.'),
+                                            label: LText('${c.streak} дн.'),
                                             side: BorderSide.none,
                                             color: WidgetStatePropertyAll(
                                               Theme.of(context)
@@ -395,7 +395,7 @@ class _HomeShellState extends State<HomeShell> {
                                                 ? 'ru'
                                                 : 'uk',
                                           ),
-                                          icon: Text(
+                                          icon: LText(
                                             c.locale.languageCode == 'uk'
                                                 ? 'UA'
                                                 : 'RU',
@@ -476,7 +476,7 @@ class Brand extends StatelessWidget {
         child: const Icon(Icons.layers_rounded, color: Colors.white, size: 23),
       ),
       const SizedBox(width: 10),
-      const Text(
+      LText(
         'easy',
         style: TextStyle(
           fontWeight: FontWeight.w800,
@@ -484,7 +484,7 @@ class Brand extends StatelessWidget {
           letterSpacing: -.8,
         ),
       ),
-      Text(
+      LText(
         'english',
         style: TextStyle(
           fontSize: 23,
@@ -511,7 +511,7 @@ class SectionTitle extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              LText(
                 localize(title, context),
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.w700,
@@ -521,7 +521,7 @@ class SectionTitle extends StatelessWidget {
               if (subtitle != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
-                  child: Text(
+                  child: LText(
                     localize(subtitle!, context),
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,

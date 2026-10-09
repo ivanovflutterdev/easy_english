@@ -39,7 +39,7 @@ class Dashboard extends StatelessWidget {
                 children: [
                   const _Tag('ВАША ЕЖЕДНЕВНАЯ ПРАКТИКА'),
                   const SizedBox(height: 22),
-                  Text(
+                  LText(
                     c.today >= c.goal
                         ? 'Цель достигнута.\nТак держать!'
                         : 'Всего 10 минут\nдля нового себя.',
@@ -50,7 +50,7 @@ class Dashboard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Text(
+                  LText(
                     c.due > 0
                         ? '${c.due} карточек ждут повторения.\nПоможем словам остаться в памяти.'
                         : 'Откройте первую карточку.\nМы подберём время для повторения.',
@@ -63,10 +63,10 @@ class Dashboard extends StatelessWidget {
                   FilledButton.icon(
                     onPressed: c.queue().isEmpty ? null : () => onStudy(),
                     icon: const Icon(Icons.play_arrow_rounded),
-                    label: Text(localize('Начать занятие', context)),
+                    label: LText(localize('Начать занятие', context)),
                   ),
                   const SizedBox(height: 12),
-                  Text(
+                  LText(
                     'Карточки доступны без интернета',
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
@@ -124,7 +124,7 @@ class Dashboard extends StatelessWidget {
                               const SizedBox(height: 16),
                               const FittedBox(
                                 fit: BoxFit.scaleDown,
-                                child: Text(
+                                child: LText(
                                   'discover',
                                   style: TextStyle(
                                     fontSize: 26,
@@ -135,7 +135,7 @@ class Dashboard extends StatelessWidget {
                               const SizedBox(height: 7),
                               const FittedBox(
                                 fit: BoxFit.scaleDown,
-                                child: Text('открывать'),
+                                child: LText('открывать'),
                               ),
                               const Spacer(),
                               Container(
@@ -209,7 +209,7 @@ class Dashboard extends StatelessWidget {
           subtitle: 'От первых разговоров к свободному общению',
           trailing: TextButton(
             onPressed: onLibrary,
-            child: Text(localize('Все слова', context)),
+            child: LText(localize('Все слова', context)),
           ),
         ),
         _Deck(
@@ -232,7 +232,7 @@ class Dashboard extends StatelessWidget {
           onTap: () => onStudy('advanced'),
         ),
         const SizedBox(height: 16),
-        Text(
+        LText(
           'Каталог Oxford: ${c.words.length} слов. Готовы к обучению: ${c.words.where((w) => w.translation.isNotEmpty).length}. Добавляйте переводы в словаре, чтобы расширять занятия.',
           style: Theme.of(context).textTheme.bodySmall,
         ),
@@ -248,7 +248,7 @@ class Dashboard extends StatelessWidget {
               ),
               const SizedBox(width: 16),
               Expanded(
-                child: Text(
+                child: LText(
                   'Лучше немного каждый день, чем много раз в неделю. Повторение в нужный момент помогает запоминать надолго.',
                   style: TextStyle(
                     height: 1.6,
@@ -274,7 +274,7 @@ class _Tag extends StatelessWidget {
       color: Theme.of(context).colorScheme.primary.withValues(alpha: .08),
       borderRadius: BorderRadius.circular(9),
     ),
-    child: Text(
+    child: LText(
       text,
       style: TextStyle(
         fontSize: 11,
@@ -307,14 +307,14 @@ class _Metric extends StatelessWidget {
         children: [
           Icon(icon, color: color),
           const SizedBox(height: 10),
-          Text(
+          LText(
             value,
             style: Theme.of(
               context,
             ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 5),
-          Text(label, style: const TextStyle(fontSize: 12)),
+          LText(label, style: const TextStyle(fontSize: 12)),
         ],
       ),
     ),
@@ -365,7 +365,7 @@ class _Deck extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    LText(
                       title,
                       style: const TextStyle(
                         fontSize: 18,
@@ -373,7 +373,7 @@ class _Deck extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 6),
-                    Text(
+                    LText(
                       subtitle,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
@@ -399,13 +399,13 @@ class _Deck extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Text(
+                child: LText(
                   '$studied из ${words.length} доступных слов',
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),
               const SizedBox(width: 8),
-              Text(
+              LText(
                 tag,
                 style: TextStyle(
                   fontSize: 12,
@@ -475,7 +475,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
               ('advanced', 'Дополнительные 2000'),
             ])
               ChoiceChip(
-                label: Text(item.$2),
+                label: LText(item.$2),
                 selected: deck == item.$1,
                 onSelected: (_) => setState(() {
                   deck = item.$1;
@@ -493,7 +493,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
               const Icon(Icons.offline_pin_outlined, color: Color(0xFF4A9C8E)),
               const SizedBox(width: 12),
               Expanded(
-                child: Text(
+                child: LText(
                   '${c.words.length} слов Oxford доступны офлайн. ${c.words.where((w) => w.translation.isNotEmpty).length} с переводом. Нажмите на слово, чтобы добавить свой перевод и включить его в занятия.',
                 ),
               ),
@@ -506,13 +506,13 @@ class _LibraryScreenState extends State<LibraryScreen> {
               ? null
               : () => widget.onStudy(deck),
           icon: const Icon(Icons.play_arrow_rounded),
-          label: Text(localize('Учить эту коллекцию', context)),
+          label: LText(localize('Учить эту коллекцию', context)),
         ),
         const SizedBox(height: 20),
         if (words.isEmpty)
           Padding(
             padding: EdgeInsets.all(30),
-            child: Text(
+            child: LText(
               localize('Ничего не найдено. Попробуйте другое слово.', context),
             ),
           ),
@@ -524,11 +524,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
               child: ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: Text(
+                title: LText(
                   word.word,
                   style: const TextStyle(fontWeight: FontWeight.w700),
                 ),
-                subtitle: Text(
+                subtitle: LText(
                   '${word.translation.isEmpty ? 'Добавить перевод' : word.translation}  ·  ${word.level}',
                 ),
                 leading: CircleAvatar(
@@ -550,20 +550,20 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 onTap: () => showDialog<void>(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: Text(word.word),
+                    title: LText(word.word),
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(word.phonetic),
+                        LText(word.phonetic),
                         const SizedBox(height: 12),
-                        Text(word.translation),
+                        LText(word.translation),
                         const SizedBox(height: 12),
-                        Text(word.example),
+                        LText(word.example),
                         if (c.progress[word.id] != null)
                           Padding(
                             padding: const EdgeInsets.only(top: 16),
-                            child: Text(
+                            child: LText(
                               'Следующее повторение: ${dayKey(c.progress[word.id]!.due.toLocal())}',
                             ),
                           ),
@@ -575,15 +575,15 @@ class _LibraryScreenState extends State<LibraryScreen> {
                           Navigator.pop(context);
                           _editTranslation(word);
                         },
-                        child: const Text('Мой перевод'),
+                        child: LText('Мой перевод'),
                       ),
                       TextButton(
                         onPressed: () => c.speak(word.word),
-                        child: const Text('Послушать'),
+                        child: LText('Послушать'),
                       ),
                       TextButton(
                         onPressed: () => Navigator.pop(context),
-                        child: const Text('Закрыть'),
+                        child: LText('Закрыть'),
                       ),
                     ],
                   ),
@@ -595,7 +595,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
           Center(
             child: TextButton(
               onPressed: () => setState(() => visibleCount += 40),
-              child: Text('Показать ещё · найдено ${words.length}'),
+              child: LText('Показать ещё · найдено ${words.length}'),
             ),
           ),
       ],
@@ -607,7 +607,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
     final value = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(word.word),
+        title: LText(word.word),
         content: TextField(
           controller: input,
           autofocus: true,
@@ -620,7 +620,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Отмена'),
+            child: LText('Отмена'),
           ),
           FilledButton(
             onPressed: () {
@@ -628,7 +628,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 Navigator.pop(context, input.text.trim());
               }
             },
-            child: const Text('Сохранить'),
+            child: LText('Сохранить'),
           ),
         ],
       ),
@@ -707,12 +707,12 @@ class ProgressScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              LText(
                 'Ваша неделя',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 8),
-              Text(
+              LText(
                 '${counts.fold(0, (a, b) => a + b)} ответов за последние 7 дней',
               ),
               const SizedBox(height: 28),
@@ -728,7 +728,7 @@ class ProgressScreen extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Text(
+                              LText(
                                 '${counts[i]}',
                                 style: const TextStyle(fontSize: 12),
                               ),
@@ -745,7 +745,7 @@ class ProgressScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 12),
-                              Text(
+                              LText(
                                 [
                                   'Пн',
                                   'Вт',
@@ -773,7 +773,7 @@ class ProgressScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              LText(
                 'Сегодняшняя цель',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
@@ -784,11 +784,11 @@ class ProgressScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               const SizedBox(height: 12),
-              Text(
+              LText(
                 '${c.today} из ${c.goal} ответов · ${c.today >= c.goal ? 'готово!' : 'вы справитесь'}',
               ),
               const SizedBox(height: 20),
-              Text(
+              LText(
                 'Освоено: ${c.learned} слов (интервал повторения от 21 дня).\nК повторению сейчас: ${c.due}.',
                 style: const TextStyle(height: 1.7),
               ),
@@ -885,14 +885,14 @@ class AchievementsScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              LText(
                                 badge.$1,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
                               const SizedBox(height: 5),
-                              Text(
+                              LText(
                                 badge.$2,
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
@@ -926,7 +926,7 @@ class AchievementsScreen extends StatelessWidget {
                 Icon(Icons.people_outline, size: 36),
                 SizedBox(width: 18),
                 Expanded(
-                  child: Text(
+                  child: LText(
                     'Войдите в аккаунт в настройках, чтобы участвовать в рейтинге.',
                   ),
                 ),
@@ -939,7 +939,7 @@ class AchievementsScreen extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return const Glass(
-                  child: Text(
+                  child: LText(
                     'Рейтинг пока недоступен. Проверьте подключение и настройку сервера.',
                   ),
                 );
@@ -950,7 +950,7 @@ class AchievementsScreen extends StatelessWidget {
               final docs = snapshot.data!;
               if (docs.isEmpty) {
                 return const Glass(
-                  child: Text(
+                  child: LText(
                     'Рейтинг пока пуст. Завершите занятие — сервер добавит ваш результат.',
                   ),
                 );
@@ -961,11 +961,11 @@ class AchievementsScreen extends StatelessWidget {
                   children: [
                     for (var i = 0; i < docs.length; i++)
                       ListTile(
-                        leading: CircleAvatar(child: Text('${i + 1}')),
-                        title: Text(
+                        leading: CircleAvatar(child: LText('${i + 1}')),
+                        title: LText(
                           docs[i].uid == c.user!.uid ? 'Вы' : docs[i].name,
                         ),
-                        trailing: Text('${docs[i].xp} XP'),
+                        trailing: LText('${docs[i].xp} XP'),
                       ),
                   ],
                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../application/learning_controller.dart';
 import '../domain/learning.dart';
 import 'app.dart';
+import 'localization.dart';
 
 class StudyScreen extends StatefulWidget {
   const StudyScreen({super.key, required this.controller, required this.deck});
@@ -54,7 +55,7 @@ class _StudyScreenState extends State<StudyScreen> {
       builder: (context, _) => Scaffold(
         backgroundColor: scheme.surface,
         appBar: AppBar(
-          title: const Text('Время для себя'),
+          title: LText('Время для себя'),
           centerTitle: true,
           backgroundColor: scheme.surface,
         ),
@@ -67,12 +68,10 @@ class _StudyScreenState extends State<StudyScreen> {
                 child: sessionOwner != c.owner
                     ? Column(
                         children: [
-                          const Text(
-                            'Аккаунт изменился. Начните новое занятие.',
-                          ),
+                          LText('Аккаунт изменился. Начните новое занятие.'),
                           TextButton(
                             onPressed: () => Navigator.pop(context),
-                            child: const Text('Вернуться'),
+                            child: LText('Вернуться'),
                           ),
                         ],
                       )
@@ -85,7 +84,7 @@ class _StudyScreenState extends State<StudyScreen> {
                             color: Color(0xFFC6A45D),
                           ),
                           const SizedBox(height: 28),
-                          Text(
+                          LText(
                             cards.isEmpty
                                 ? 'Вы всё повторили!'
                                 : 'Ещё один шаг вперёд!',
@@ -93,7 +92,7 @@ class _StudyScreenState extends State<StudyScreen> {
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 16),
-                          Text(
+                          LText(
                             cards.isEmpty
                                 ? 'Возвращайтесь, когда подойдёт время следующего повторения.'
                                 : '$index ответов сохранено.\nСлова с ответом «Снова» вернутся через минуту.',
@@ -103,7 +102,7 @@ class _StudyScreenState extends State<StudyScreen> {
                           const SizedBox(height: 28),
                           FilledButton(
                             onPressed: () => Navigator.pop(context),
-                            child: const Text('Отлично'),
+                            child: LText('Отлично'),
                           ),
                         ],
                       )
@@ -115,14 +114,14 @@ class _StudyScreenState extends State<StudyScreen> {
                             spacing: 16,
                             runSpacing: 8,
                             children: [
-                              Text(
+                              LText(
                                 'КАРТОЧКА ${index + 1} ИЗ ${cards.length}',
                                 style: const TextStyle(
                                   fontSize: 12,
                                   letterSpacing: 1.5,
                                 ),
                               ),
-                              Text('${c.today}/${c.goal} сегодня'),
+                              LText('${c.today}/${c.goal} сегодня'),
                             ],
                           ),
                           const SizedBox(height: 14),
@@ -154,7 +153,7 @@ class _StudyScreenState extends State<StudyScreen> {
                                       Row(
                                         children: [
                                           Chip(
-                                            label: Text(cards[index].level),
+                                            label: LText(cards[index].level),
                                             side: BorderSide.none,
                                           ),
                                           const Spacer(),
@@ -169,7 +168,7 @@ class _StudyScreenState extends State<StudyScreen> {
                                         ],
                                       ),
                                       const SizedBox(height: 30),
-                                      Text(
+                                      LText(
                                         cards[index].word,
                                         textAlign: TextAlign.center,
                                         style: Theme.of(context)
@@ -181,7 +180,7 @@ class _StudyScreenState extends State<StudyScreen> {
                                             ),
                                       ),
                                       const SizedBox(height: 12),
-                                      Text(
+                                      LText(
                                         cards[index].phonetic,
                                         style: TextStyle(
                                           color: scheme.onSurfaceVariant,
@@ -191,7 +190,7 @@ class _StudyScreenState extends State<StudyScreen> {
                                       if (revealed) ...[
                                         const Divider(),
                                         const SizedBox(height: 24),
-                                        Text(
+                                        LText(
                                           cards[index].translation,
                                           textAlign: TextAlign.center,
                                           style: Theme.of(
@@ -199,7 +198,7 @@ class _StudyScreenState extends State<StudyScreen> {
                                           ).textTheme.headlineSmall,
                                         ),
                                         const SizedBox(height: 18),
-                                        Text(
+                                        LText(
                                           cards[index].example,
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
@@ -214,7 +213,7 @@ class _StudyScreenState extends State<StudyScreen> {
                                           padding: EdgeInsets.symmetric(
                                             vertical: 25,
                                           ),
-                                          child: Text(
+                                          child: LText(
                                             'Вспомните значение слова',
                                             textAlign: TextAlign.center,
                                           ),
@@ -229,10 +228,10 @@ class _StudyScreenState extends State<StudyScreen> {
                           if (!revealed)
                             FilledButton(
                               onPressed: () => setState(() => revealed = true),
-                              child: const Text('Показать перевод'),
+                              child: LText('Показать перевод'),
                             )
                           else ...[
-                            const Text(
+                            LText(
                               'Насколько легко вспомнилось?',
                               textAlign: TextAlign.center,
                             ),
@@ -262,7 +261,7 @@ class _StudyScreenState extends State<StudyScreen> {
                                         ),
                                         child: Column(
                                           children: [
-                                            Text(
+                                            LText(
                                               [
                                                 'Снова',
                                                 'Трудно',
@@ -274,7 +273,7 @@ class _StudyScreenState extends State<StudyScreen> {
                                               ),
                                             ),
                                             const SizedBox(height: 5),
-                                            Text(
+                                            LText(
                                               _interval(recall),
                                               style: const TextStyle(
                                                 fontSize: 12,
@@ -289,7 +288,7 @@ class _StudyScreenState extends State<StudyScreen> {
                             ),
                           ],
                           const SizedBox(height: 20),
-                          Text(
+                          LText(
                             'Прогресс сохраняется после каждого ответа',
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.bodySmall,
