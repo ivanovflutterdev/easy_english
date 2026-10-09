@@ -225,18 +225,18 @@ class _HomeShellState extends State<HomeShell> {
               : [
                   Color.lerp(
                     Colors.white,
-                    accents[controller.colorIndex.clamp(0, accents.length - 1)],
+                    accents[c.colorIndex.clamp(0, accents.length - 1)],
                     .16,
                   )!,
                   Color.lerp(
                     Colors.white,
-                    accents[controller.colorIndex.clamp(0, accents.length - 1)],
+                    accents[c.colorIndex.clamp(0, accents.length - 1)],
                     .08,
                   )!,
                   const Color(0xFFFFF7C7),
                   Color.lerp(
                     Colors.white,
-                    accents[controller.colorIndex.clamp(0, accents.length - 1)],
+                    accents[c.colorIndex.clamp(0, accents.length - 1)],
                     .11,
                   )!,
                 ],
