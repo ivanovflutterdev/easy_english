@@ -120,34 +120,53 @@ class Glass extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = Theme.of(context).brightness == Brightness.dark;
+    final radius = BorderRadius.circular(28);
     final panel = Container(
       padding: padding,
       decoration: BoxDecoration(
         color:
             color ??
-            (dark ? const Color(0xFF23243E) : Colors.white).withValues(
-              alpha: opaque ? 1 : .68,
+            (dark ? const Color(0xFF20243B) : Colors.white).withValues(
+              alpha: opaque ? 1 : .48,
             ),
-        borderRadius: BorderRadius.circular(28),
+        gradient: opaque
+            ? null
+            : LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: dark
+                    ? [
+                        Colors.white.withValues(alpha: .10),
+                        Colors.white.withValues(alpha: .025),
+                      ]
+                    : [
+                        Colors.white.withValues(alpha: .72),
+                        Colors.white.withValues(alpha: .28),
+                      ],
+              ),
+        borderRadius: radius,
         border: Border.all(
-          color: Colors.white.withValues(alpha: dark ? .09 : .8),
+          color: Colors.white.withValues(alpha: dark ? .18 : .72),
+          width: 1.2,
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF625799).withValues(alpha: dark ? .03 : .045),
-            blurRadius: 25,
-            offset: const Offset(0, 10),
+            color: (dark ? Colors.black : const Color(0xFF5D527A)).withValues(
+              alpha: dark ? .22 : .10,
+            ),
+            blurRadius: 30,
+            offset: const Offset(0, 14),
           ),
         ],
       ),
       child: child,
     );
     return ClipRRect(
-      borderRadius: BorderRadius.circular(28),
+      borderRadius: radius,
       child: opaque
           ? panel
           : BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
+              filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
               child: panel,
             ),
     );
