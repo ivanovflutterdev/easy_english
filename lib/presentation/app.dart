@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../application/learning_controller.dart';
 import 'screens.dart';
 
-const accents = [Color(0xFF6659DF), Color(0xFF168A83), Color(0xFFCE6B42)];
+const accents = [Color(0xFF7C4DFF), Color(0xFF00A896), Color(0xFFFF6B4A)];
 
 class EasyEnglishApp extends StatelessWidget {
   const EasyEnglishApp({super.key, required this.controller});
@@ -17,6 +17,7 @@ class EasyEnglishApp extends StatelessWidget {
         final scheme = ColorScheme.fromSeed(
           seedColor: accents[controller.colorIndex],
           brightness: brightness,
+          dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
         );
         return ThemeData(
           useMaterial3: true,
@@ -33,9 +34,20 @@ class EasyEnglishApp extends StatelessWidget {
                     ? const Color(0xFFF1F0FA)
                     : const Color(0xFF292744),
               ),
+          cardTheme: CardThemeData(
+            elevation: 0,
+            color: dark
+                ? const Color(0xFF262044)
+                : Colors.white.withValues(alpha: .88),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24),
+            ),
+          ),
           filledButtonTheme: FilledButtonThemeData(
             style: FilledButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 19),
+              backgroundColor: scheme.primary,
+              foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18),
               ),
@@ -199,9 +211,10 @@ class _HomeShellState extends State<HomeShell> {
                   const Color(0xFF142A30),
                 ]
               : [
-                  const Color(0xFFF0EDFF),
-                  const Color(0xFFF6F6FB),
-                  const Color(0xFFE9F5F2),
+                  const Color(0xFFFFE7F2),
+                  const Color(0xFFFFF3C7),
+                  const Color(0xFFDDF8F3),
+                  const Color(0xFFE8DEFF),
                 ],
         ),
       ),
