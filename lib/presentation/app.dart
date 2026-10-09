@@ -4,7 +4,16 @@ import '../application/learning_controller.dart';
 import 'screens.dart';
 import 'localization.dart';
 
-const accents = [Color(0xFF9BCB3B), Color(0xFF70B82D), Color(0xFFB7D84B)];
+const accents = [
+  Color(0xFF9BCB3B), // Салатовый
+  Color(0xFF70B82D), // Травяной
+  Color(0xFF00A896), // Мятный
+  Color(0xFF38BDF8), // Небесный
+  Color(0xFF7C4DFF), // Лавандовый
+  Color(0xFFFFB020), // Янтарный
+  Color(0xFFFF6B4A), // Коралловый
+  Color(0xFFE83E8C), // Розовый
+];
 
 class EasyEnglishApp extends StatelessWidget {
   const EasyEnglishApp({super.key, required this.controller});
@@ -16,7 +25,8 @@ class EasyEnglishApp extends StatelessWidget {
       ThemeData theme(Brightness brightness) {
         final dark = brightness == Brightness.dark;
         final scheme = ColorScheme.fromSeed(
-          seedColor: accents[controller.colorIndex],
+          seedColor:
+              accents[controller.colorIndex.clamp(0, accents.length - 1)],
           brightness: brightness,
           dynamicSchemeVariant: DynamicSchemeVariant.fidelity,
         );
@@ -213,10 +223,22 @@ class _HomeShellState extends State<HomeShell> {
                   const Color(0xFF142A30),
                 ]
               : [
-                  const Color(0xFFF1F8D5),
+                  Color.lerp(
+                    Colors.white,
+                    accents[controller.colorIndex.clamp(0, accents.length - 1)],
+                    .16,
+                  )!,
+                  Color.lerp(
+                    Colors.white,
+                    accents[controller.colorIndex.clamp(0, accents.length - 1)],
+                    .08,
+                  )!,
                   const Color(0xFFFFF7C7),
-                  const Color(0xFFDDF5D7),
-                  const Color(0xFFE8F4C8),
+                  Color.lerp(
+                    Colors.white,
+                    accents[controller.colorIndex.clamp(0, accents.length - 1)],
+                    .11,
+                  )!,
                 ],
         ),
       ),

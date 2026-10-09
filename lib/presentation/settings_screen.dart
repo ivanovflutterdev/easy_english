@@ -171,7 +171,16 @@ class SettingsScreen extends StatelessWidget {
                     IconButton.filled(
                       onPressed: () => c.setting('color', i),
                       style: IconButton.styleFrom(backgroundColor: accents[i]),
-                      tooltip: ['Лавандовый', 'Мятный', 'Терракотовый'][i],
+                      tooltip: const [
+                        'Салатовый',
+                        'Травяной',
+                        'Мятный',
+                        'Небесный',
+                        'Лавандовый',
+                        'Янтарный',
+                        'Коралловый',
+                        'Розовый',
+                      ][i],
                       icon: Icon(
                         c.colorIndex == i ? Icons.check : Icons.circle,
                         color: Colors.white,
